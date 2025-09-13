@@ -1,11 +1,33 @@
 pipeline {
     agent any
-    tools { nodejs 'NodeJS_18' }  // name must match Global Tool config
-    stages {
-        stage('Checkout') { steps { checkout scm } }
-        stage('Install') { steps { sh 'npm ci' } }
-        stage('Build') { steps { sh 'npm run build' } }
-        stage('Archive') { steps { archiveArtifacts artifacts: 'build/**', fingerprint: true } }
+
+    tools {
+        nodejs "node18"
     }
-    post { always { cleanWs() } }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Manikandarajan-Jegadeshwaran/mfe-host.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Archive Build') {
+            steps {
+                archiveArtifacts artifacts: 'build/**', followSymlinks: false
+            }
+        }
+    }
 }
