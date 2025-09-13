@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs "node18"
+        nodejs 'node18'
     }
 
     stages {
@@ -24,10 +24,10 @@ pipeline {
             }
         }
 
-        stage('Archive Build') {
-            steps {
-                archiveArtifacts artifacts: 'build/**', followSymlinks: false
-            }
-        }
+    // stage('Archive Build') {
+    //     steps {
+    //         archiveArtifacts artifacts: 'build/**', followSymlinks: false
+    //     }
+    // }
     }
 }
