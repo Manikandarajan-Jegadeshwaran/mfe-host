@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Manikandarajan-Jegadeshwaran/mfe-host.git'
+                git branch: 'main',
+                url: 'https://github.com/Manikandarajan-Jegadeshwaran/mfe-host.git',
+                credentialsId: 'github-token-0'
             }
         }
 
