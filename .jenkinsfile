@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+    tools { nodejs 'NodeJS_18' }  // name must match Global Tool config
+    stages {
+        stage('Checkout') { steps { checkout scm } }
+        stage('Install') { steps { sh 'npm ci' } }
+        stage('Build') { steps { sh 'npm run build' } }
+        stage('Archive') { steps { archiveArtifacts artifacts: 'build/**', fingerprint: true } }
+    }
+    post { always { cleanWs() } }
+}
